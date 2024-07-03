@@ -23,14 +23,7 @@ logger = logging.getLogger("ray.serve")
 app = FastAPI()
 
 
-@serve.deployment(
-    autoscaling_config={
-        "min_replicas": 1,
-        "max_replicas": 10,
-        "target_ongoing_requests": 5,
-    },
-    max_ongoing_requests=10,
-)
+@serve.deployment()
 @serve.ingress(app)
 class VLLMDeployment:
     def __init__(
@@ -124,7 +117,7 @@ def build_app(cli_args: Dict[str, str]) -> serve.Application:
     # We use the "STRICT_PACK" strategy below to ensure all vLLM actors are placed on
     # the same Ray node.
     return VLLMDeployment.options(
-        placement_group_bundles=pg_resources, placement_group_strategy="STRICT_PACK"
+        placement_group_bundles=pg_resources, placement_group_strategy="PACK"
     ).bind(
         engine_args,
         parsed_args.response_role,
@@ -134,7 +127,7 @@ def build_app(cli_args: Dict[str, str]) -> serve.Application:
 
 VLLMDeployment = build_app(
     {
-        "model": "NousResearch/Meta-Llama-3-8B-Instruct",
-        "tensor_parallel_size": 2,
+        "model": "microsoft/phi-2",
+        "tensor_parallel_size": 1,
     }
 )

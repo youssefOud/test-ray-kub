@@ -131,10 +131,3 @@ def build_app(cli_args: Dict[str, str]) -> serve.Application:
         parsed_args.lora_modules,
         parsed_args.chat_template,
     )
-
-VLLMDeployment = build_app(
-    {
-        "model": "NousResearch/Meta-Llama-3-8B-Instruct",
-        "tensor_parallel_size": 2,
-    }
-)

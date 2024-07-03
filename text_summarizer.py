@@ -7,7 +7,7 @@ app = FastAPI()
 
 @serve.deployment(
     route_prefix="/",
-    ray_actor_options={"num_gpus": 1},
+    ray_actor_options={"num_gpus": 0.5},
 )
 @serve.ingress(app)
 class SummaryDeployment:

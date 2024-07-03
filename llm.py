@@ -127,7 +127,7 @@ def build_app(cli_args: Dict[str, str]) -> serve.Application:
         parsed_args.chat_template,
     )
 
-VLLMDeployment = build_app(
+deployment = build_app(
     {
         "model": "microsoft/phi-2",
         "tensor_parallel_size": 1,

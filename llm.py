@@ -110,6 +110,8 @@ def build_app(cli_args: Dict[str, str]) -> serve.Application:
 
     Supported engine arguments: https://docs.vllm.ai/en/latest/models/engine_args.html.
     """  # noqa: E501
+    cli_args['model'] = "NousResearch/Meta-Llama-3-8B-Instruct"
+    cli_args['tensor_parallel_size'] = 2
     parsed_args = parse_vllm_args(cli_args)
     engine_args = AsyncEngineArgs.from_cli_args(parsed_args)
     engine_args.worker_use_ray = True

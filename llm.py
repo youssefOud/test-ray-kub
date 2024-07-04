@@ -112,7 +112,7 @@ def build_app(cli_args: Dict[str, str]) -> serve.Application:
     """  # noqa: E501
     cli_args = dict()
     cli_args['model'] = "microsoft/phi-2" # "NousResearch/Meta-Llama-3-8B-Instruct"
-    cli_args['tensor-parallel-size'] = "2"
+    cli_args['tensor-parallel-size'] = "1"
     parsed_args = parse_vllm_args(cli_args)
     engine_args = AsyncEngineArgs.from_cli_args(parsed_args)
     engine_args.worker_use_ray = True
